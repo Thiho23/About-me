@@ -1,0 +1,787 @@
+/* Fonts */
+:root {
+  --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "Raleway",  sans-serif;
+  --nav-font: "Poppins",  sans-serif; 
+}
+
+/* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
+:root { 
+  --background-color: #000000; /* Background color for the entire website, including individual sections */
+  --default-color: #f4f4f5; /* Default color used for the majority of the text content across the entire website */
+  --heading-color: #f4f4f5; /* Color for headings, subheadings and title throughout the website */
+  --accent-color: #6d28d9; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --surface-color: #1a1a1a; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
+  --contrast-color: #000000; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+}
+
+/* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
+:root {
+  --nav-color: #f4f4f5;  /* The default color of the main navmenu links */
+  --nav-hover-color: #6d28d9; /* Applied to main navmenu links when they are hovered over or active */
+  --nav-mobile-background-color: #1a1a1a; /* Used as the background color for mobile navigation menu */
+  --nav-dropdown-background-color: #1a1a1a; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
+  --nav-dropdown-color: #fafafa; /* Used for navigation links of the dropdown items in the navigation menu. */
+  --nav-dropdown-hover-color: #6d28d9; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+}
+
+/* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
+
+.light-background {
+  --background-color: #1a1a1a;
+  --surface-color: #343434;
+}
+
+.dark-background {
+  --background-color: rgba(15, 15, 15, 0.975);
+  --default-color: #ffffff;
+  --heading-color: #ffffff;
+  --surface-color: #292929f9;
+  --contrast-color: #000000;
+}
+
+/*--------------------------------------------------------------
+# General Styling & Shared Classes
+--------------------------------------------------------------*/
+body {
+  color: var(--default-color);
+  background-color: var(--background-color);
+  font-family: var(--default-font);
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+a:hover {
+  color: color-mix(in srgb, var(--accent-color), transparent 25%);
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--heading-color);
+  font-family: var(--heading-font);
+}
+
+/*--------------------------------------------------------------
+# Global Header
+--------------------------------------------------------------*/
+.scrolled .header {
+  box-shadow: 0px 0 18px rgba(0, 0, 0, 0.1);
+}
+
+/* Global Header on Scroll
+------------------------------*/
+.scrolled .header {
+  --background-color: rgba(0, 0, 0, 0.8);
+}
+
+/*--------------------------------------------------------------
+# Navigation Menu
+--------------------------------------------------------------*/
+/* Desktop Navigation */
+@media (min-width: 1200px) {
+  .navmenu {
+    height: 80px;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navmenu ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    align-items: center;
+  }
+
+  .navmenu li {
+    position: relative;
+  }
+
+  .navmenu>ul>li {
+    display: inline-block;
+    white-space: nowrap;
+    padding: 15px 14px;
+  }
+
+  .navmenu>ul>li:last-child {
+    padding-right: 0;
+  }
+
+  .navmenu a,
+  .navmenu a:focus {
+    color: var(--nav-color);
+    font-size: 15px;
+    padding: 0 2px;
+    font-family: var(--nav-font);
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+    transition: 0.3s;
+    position: relative;
+    flex-direction: column;
+  }
+
+  .navmenu a i,
+  .navmenu a:focus i {
+    font-size: 12px;
+    line-height: 0;
+    margin-left: 5px;
+    transition: 0.3s;
+  }
+
+  .navmenu>ul>li>a:before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    bottom: -6px;
+    left: 0;
+    background-color: var(--nav-hover-color);
+    visibility: hidden;
+    width: 0px;
+    transition: all 0.3s ease-in-out 0s;
+  }
+
+  .navmenu a:hover:before,
+  .navmenu li:hover>a:before,
+  .navmenu .active:before {
+    visibility: visible;
+    width: 25px;
+  }
+
+  .navmenu li:hover>a,
+  .navmenu .active,
+  .navmenu .active:focus {
+    color: var(--nav-hover-color);
+  }
+
+  .navmenu .dropdown ul {
+    margin: 0;
+    padding: 10px 0;
+    background: var(--nav-dropdown-background-color);
+    display: block;
+    position: absolute;
+    visibility: hidden;
+    left: 14px;
+    top: 130%;
+    opacity: 0;
+    transition: 0.3s;
+    border-radius: 4px;
+    z-index: 99;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .navmenu .dropdown ul li {
+    min-width: 200px;
+  }
+
+  .navmenu .dropdown ul a {
+    padding: 10px 20px;
+    font-size: 15px;
+    text-transform: none;
+    color: var(--nav-dropdown-color);
+  }
+
+  .navmenu .dropdown ul a i {
+    font-size: 12px;
+  }
+
+  .navmenu .dropdown ul a:hover,
+  .navmenu .dropdown ul .active:hover,
+  .navmenu .dropdown ul li:hover>a {
+    color: var(--nav-dropdown-hover-color);
+  }
+
+  .navmenu .dropdown:hover>ul {
+    opacity: 1;
+    top: 100%;
+    visibility: visible;
+  }
+
+  .navmenu .dropdown .dropdown ul {
+    top: 0;
+    left: -90%;
+    visibility: hidden;
+  }
+
+  .navmenu .dropdown .dropdown:hover>ul {
+    opacity: 1;
+    top: 0;
+    left: -100%;
+    visibility: visible;
+  }
+}
+
+
+
+/* Mobile Navigation */
+@media (max-width: 1199px) {
+  .mobile-nav-toggle {
+    color: var(--nav-color);
+    font-size: 28px;
+    line-height: 0;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .navmenu {
+    padding: 0;
+    z-index: 9997;
+  }
+
+  .navmenu ul {
+    display: none;
+    list-style: none;
+    position: absolute;
+    inset: 60px 20px 20px 20px;
+    padding: 10px 0;
+    margin: 0;
+    border-radius: 6px;
+    background-color: var(--nav-mobile-background-color);
+    border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+    box-shadow: none;
+    overflow-y: auto;
+    transition: 0.3s;
+    z-index: 9998;
+  }
+
+  .navmenu a,
+  .navmenu a:focus {
+    color: var(--nav-dropdown-color);
+    padding: 10px 20px;
+    font-family: var(--nav-font);
+    font-size: 17px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+    transition: 0.3s;
+  }
+
+  .navmenu a i,
+  .navmenu a:focus i {
+    font-size: 12px;
+    line-height: 0;
+    margin-left: 5px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: 0.3s;
+    background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+  }
+
+  .navmenu a i:hover,
+  .navmenu a:focus i:hover {
+    background-color: var(--accent-color);
+    color: var(--contrast-color);
+  }
+
+  .navmenu a:hover,
+  .navmenu .active,
+  .navmenu .active:focus {
+    color: var(--nav-dropdown-hover-color);
+  }
+
+  .navmenu .active i,
+  .navmenu .active:focus i {
+    background-color: var(--accent-color);
+    color: var(--contrast-color);
+    transform: rotate(180deg);
+  }
+
+  .navmenu .dropdown ul {
+    position: static;
+    display: none;
+    z-index: 99;
+    padding: 10px 0;
+    margin: 10px 20px;
+    background-color: var(--nav-dropdown-background-color);
+    transition: all 0.5s ease-in-out;
+  }
+
+  .navmenu .dropdown ul ul {
+    background-color: rgba(33, 37, 41, 0.1);
+  }
+
+  .navmenu .dropdown>.dropdown-active {
+    display: block;
+    background-color: rgba(33, 37, 41, 0.03);
+  }
+
+  .mobile-nav-active {
+    overflow: hidden;
+  }
+
+  .mobile-nav-active .mobile-nav-toggle {
+    color: #fff;
+    position: absolute;
+    font-size: 32px;
+    top: 15px;
+    right: 15px;
+    margin-right: 0;
+    z-index: 9999;
+  }
+
+  .mobile-nav-active .navmenu {
+    position: fixed;
+    overflow: hidden;
+    inset: 0;
+    background: rgba(33, 37, 41, 0.8);
+    transition: 0.3s;
+  }
+
+  .mobile-nav-active .navmenu>ul {
+    display: block;
+  }
+}
+
+/*--------------------------------------------------------------
+# Global Footer
+--------------------------------------------------------------*/
+.footer {
+  color: var(--default-color);
+  background-color: var(--background-color);
+  font-size: 14px;
+  text-align: center;
+  padding: 30px 0;
+  position: relative;
+}
+
+.footer h3 {
+  font-size: 36px;
+  font-weight: 700;
+  position: relative;
+  padding: 0;
+  margin: 0 0 15px 0;
+}
+
+.footer p {
+  font-size: 15;
+  font-style: italic;
+  padding: 0;
+  margin: 0 0 30px 0;
+}
+
+.footer .social-links {
+  margin: 0 0 30px 0;
+}
+
+.footer .social-links a {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  line-height: 1;
+  margin: 0 4px;
+  border-radius: 50%;
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  transition: 0.3s;
+}
+
+.footer .social-links a:hover {
+  background: color-mix(in srgb, var(--accent-color), transparent 20%);
+  text-decoration: none;
+}
+
+.footer .copyright {
+  padding-top: 25px;
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+}
+
+.footer .credits {
+  font-size: 13px;
+  padding-top: 5px;
+}
+
+/*--------------------------------------------------------------
+# Preloader
+--------------------------------------------------------------*/
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  overflow: hidden;
+  background: var(--background-color);
+  transition: all 0.6s ease-out;
+}
+
+#preloader:before {
+  content: "";
+  position: fixed;
+  top: calc(50% - 30px);
+  left: calc(50% - 30px);
+  border: 6px solid #ffffff;
+  border-color: var(--accent-color) transparent var(--accent-color) transparent;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: animate-preloader 1.5s linear infinite;
+}
+
+@keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+/*--------------------------------------------------------------
+# Global Page Titles & Breadcrumbs
+--------------------------------------------------------------*/
+.page-title {
+  background-color: #000000;
+  padding: 20px; /* add some padding to the page title */
+  border-bottom: none; /* add a subtle border at the bottom */
+}
+.heading {
+  text-align: center; 
+}
+
+.container {
+  max-width: 1200px; 
+  height: auto;
+  margin: 0 auto; 
+  padding: 0 20px; 
+}
+
+h1 {
+  font-size: 36px; /* set the font size of the heading */
+  font-weight: bold; /* make the heading bold */
+  margin-bottom: 10px; /* add some space between the heading and the breadcrumbs */
+}
+
+.breadcrumbs {
+  background-color: #000000; /* set the background color to white */
+  padding: 10px; /* add some padding to the breadcrumbs */
+  border-bottom: none; /* add a subtle border at the bottom */
+}
+
+.breadcrumbs ol {
+  list-style: none; /* remove the bullet points */
+  margin: 0;
+  padding: 0;
+  display: flex; /* make the breadcrumbs horizontal */
+  flex-wrap: wrap; /* allow the breadcrumbs to wrap to the next line */
+}
+
+.breadcrumbs li {
+  margin-right: 20px; /* add some space between breadcrumbs items */
+}
+
+.breadcrumbs a {
+  color: white; 
+  text-decoration: none; /* remove the underline */
+  transition: color 0.2s ease; /* add a smooth transition effect */
+}
+
+.breadcrumbs a:hover {
+  color: #6d28d9; 
+}
+
+.current {
+  font-weight: bold; /* make the current breadcrumb bold */
+  color: #6d28d9; 
+}
+
+/*--------------------------------------------------------------
+# Global Sections
+--------------------------------------------------------------*/
+section,
+.section {
+  color: var(--default-color);
+  background-color: var(--background-color);
+  padding: 60px 0;
+  scroll-margin-top: 100px;
+  overflow: clip;
+}
+
+@media (max-width: 1199px) {
+
+  section,
+  .section {
+    scroll-margin-top: 66px;
+  }
+}
+
+
+
+/*Style for subjects page*/
+/* Style the weekly table */
+#weekly-table {
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  border-radius: 15px;
+  background-color: #000000;
+}
+
+/* Style the time slots */
+th:first-child {
+  width: 100px;
+}
+
+/* Style the day columns */
+th:not(:first-child) {
+  width: 120px;
+}
+
+/* Add some spacing between rows */
+tbody tr {
+  margin-bottom: 10px;
+}
+
+/*style subject paragraph*/
+.subjects {
+  text-indent: 20px;
+}
+
+/*style original screenshot button*/
+.screenshot_button{
+  margin-left: 10px;
+  background-color: #f4f4f5;
+  border-radius: 10px;
+}
+
+/*Style for hobbies page*/
+/* Style the hobbies list */
+#hobbies-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-top: 25px;
+}
+
+#hobbies-list li {
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+  display: flex; /* Add flexbox layout to align items vertically */
+  align-items: center; /* Center items vertically */
+}
+
+#hobbies-list img {
+  width: 500px; /* Set image width to 50% */
+  height: 500px; /* Set image height to 50% */
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+#hobbies-list span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/*Style for music page*/
+/* Style the music list */
+#music-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#music-list li {
+  justify-content: space-evenly;
+  margin: 20px;
+  display: flex; /* Add flexbox layout to align items horizontally */
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  align-items: center; /* Center items vertically */
+}
+
+#music-list h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 0;
+}
+
+#music-list audio, #music-list video {
+  width: 50%; /* Set audio and video width to 40% */
+  height: auto; /* Set audio and video height to auto */
+  margin-right: 10px;
+}
+
+#music-list p {
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+#music-list a {
+  text-decoration: none;
+  color: #8b5cf6; /* hyperlinks color */
+}
+
+#music-list a:hover {
+  text-decoration: underline;
+  color: #6d28d9; /* hover color */
+}
+
+
+/* Style the content section in the index page */
+#content-section {
+  flex-direction: row;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 20px;
+  background-color: #000000;
+}
+
+#photo-bio-container {
+  display: flex; /* Use flexbox to align photo and bio side by side */
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+}
+
+#my-photo {
+  width: 50%;
+  height: 30%;
+  border-radius: 15px;
+  margin-right: 20px;
+}
+
+#biography {
+  flex: 1; /* Take up the remaining space */
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 20px;
+  width: 50%;
+}
+
+#biography p {
+  margin-bottom: 20px;
+}
+
+#biography ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#biography li {
+  margin-bottom: 10px;
+}
+
+#biography li:before {
+  content: "\2022";
+  font-size: 18px;
+  color: #337ab7;
+  margin-right: 10px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 20px 0;
+}
+
+/* Style for House Page*/ 
+#house-info table {
+    border-collapse: collapse;
+    width: 50%;
+    margin: 40px auto;
+  }
+  
+  #house-info th, #house-info td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  #house-info th {
+    background-color: #f0f0f0;
+  }
+  /*End Styling for House Page*/ 
+
+  /*style for index*/
+  
+  footer {
+    clear: both;
+    background-color: #000000;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+  }
+
+  #header {
+    display: flex; /* make the header a flex container */
+    justify-content: space-between; /* justify the content to the left and right */
+    align-items: center; /* vertically center the content */
+    padding: 10px; /* add some padding to the header */
+    background-color: #000000; /* add a light gray background color */
+  }
+  
+  .logo {
+    float: left;
+    margin-left: 20px;
+    margin-right: 500px; /* add some space between the logo and the nav */
+    border-radius: 50%;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #f8f8f8;
+}
+
+/* Logo Styling */
+.logo img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+/* Navigation Menu Styling */
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #f8f8f8;
+}
+
+.logo img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
